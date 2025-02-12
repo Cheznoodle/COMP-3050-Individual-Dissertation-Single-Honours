@@ -24,3 +24,31 @@ Ensure you have Python installed on your system. If not, follow these steps:
    ```sh
    python --version
 
+### macOS/Linux
+1. Open a terminal and run:
+   ```sh
+   sudo apt update && sudo apt install python3 python3-pip -y  # Ubuntu/Debian
+   brew install python  # macOS (using Homebrew)
+2. Verify installation:
+   ```sh
+   python3 --version
+
+---
+
+## Running on Google Colab
+1. Open Google Colab
+Go to [Google Colab](https://colab.research.google.com/).
+2. Install Dependencies
+Run the following in a Colab cell:
+   ```python
+   !pip install -r requirements.txt
+3. Upload Files
+Upload **main.py**, **plagiarism_detector.py**, **Chat_History.py**, and **requirements.txt** manually using:
+   ```python
+   from google.colab import files
+   uploaded = files.upload()
+4. Run the Application
+Since Streamlit doesn't run natively on Google Colab, use:
+   ```python
+   !streamlit run main.py & npx localtunnel --port 8501
+
