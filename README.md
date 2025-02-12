@@ -35,7 +35,26 @@ Ensure you have Python installed on your system. If not, follow these steps:
 
 ---
 
-## Running on Google Colab
+### Running Locally (Using Visual Studio Code)
+1. Clone the Repository
+   ```sh
+   git clone https://github.com/your-repo/Text-minator.git
+   cd Text-minator
+2. Create a Virtual Environment (Recommended)
+   ```sh
+   python -m venv venv
+   source venv/bin/activate  # macOS/Linux
+   venv\Scripts\activate  # Windows
+3. Install Dependencies
+   ```sh
+   pip install -r requirements.txt
+4. Run the Streamlit Application
+   ```sh
+   streamlit run main.py
+
+---
+
+### Running on Google Colab
 1. Open Google Colab
 Go to [Google Colab](https://colab.research.google.com/).
 2. Install Dependencies
@@ -51,4 +70,15 @@ Upload **main.py**, **plagiarism_detector.py**, **Chat_History.py**, and **requi
 Since Streamlit doesn't run natively on Google Colab, use:
    ```python
    !streamlit run main.py & npx localtunnel --port 8501
+Follow the LocalTunnel link to access the Streamlit interface.
 
+---
+
+### File Structure
+   ```sh
+   Text-minator/
+   │── main.py              # Main Streamlit app entry point
+   │── plagiarism_detector.py  # AI models for text analysis
+   │── Chat_History.py      # Chat history display
+   │── requirements.txt     # Python dependencies
+   └── README.md            # Documentation
