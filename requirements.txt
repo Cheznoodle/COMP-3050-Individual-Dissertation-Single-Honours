@@ -1,0 +1,14 @@
+nltk
+streamlit
+matplotlib
+torch 
+sentencepiece
+transformers
+plotly
+streamlit_option_menu
+pymupdf
+streamlit-lottie
+SQLAlchemy 
+mysqlclient
+scikit-learn
+numpy
