@@ -48,7 +48,7 @@ def main():
 
     model = option_menu(
         menu_title=None,
-        options=["GPT-2", "DeBERTa", "T5", "BERT"],
+        options=["GPT-J", "DeBERTa", "T5", "BERT"],
         icons=["robot", "book", "bar-chart-line", "graph-up"],
         menu_icon="cast",
         default_index=0,
