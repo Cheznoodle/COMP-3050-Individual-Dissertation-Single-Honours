@@ -4,7 +4,7 @@ import nltk
 import streamlit as st
 import torch
 from transformers import (
-    GPT2Tokenizer, GPT2LMHeadModel,
+    GPTJForCausalLM, GPT2Tokenizer, GPT2LMHeadModel,
     DebertaV2Tokenizer, DebertaV2ForMaskedLM,
     T5Tokenizer, T5ForConditionalGeneration,
     BertTokenizer, BertModel
@@ -20,8 +20,8 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 # Load Models
-gpt2_tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-gpt2_model = GPT2LMHeadModel.from_pretrained('gpt2')
+gptj_tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-j-6B')
+gptj_model = GPTJForCausalLM.from_pretrained('EleutherAI/gpt-j-6B')
 
 deberta_tokenizer = DebertaV2Tokenizer.from_pretrained('microsoft/deberta-v2-xlarge')
 deberta_model = DebertaV2ForMaskedLM.from_pretrained('microsoft/deberta-v2-xlarge', output_hidden_states=True)
@@ -40,10 +40,10 @@ def clean_text(text):
     text = re.sub(r'[^\w\s]', '', text)
     return text
 
-# GPT-2: Perplexity Calculation
-def calculate_perplexity_gpt2(text, max_chunk_length=512):
+# GPT-J: Perplexity Calculation
+def calculate_perplexity_gptj(text, max_chunk_length=512):
     text = clean_text(text)
-    tokens = gpt2_tokenizer.encode(text, add_special_tokens=False)
+    tokens = gptj_tokenizer.encode(text, add_special_tokens=False)
     n_chunks = len(tokens) // max_chunk_length + (1 if len(tokens) % max_chunk_length != 0 else 0)
 
     total_loss = 0.0
@@ -51,12 +51,12 @@ def calculate_perplexity_gpt2(text, max_chunk_length=512):
 
     for i in range(n_chunks):
         chunk_tokens = tokens[i * max_chunk_length:(i + 1) * max_chunk_length]
-        chunk_tokens = chunk_tokens[:gpt2_model.config.max_position_embeddings]
+        chunk_tokens = chunk_tokens[:gptj_model.config.max_position_embeddings]
 
         input_ids = torch.tensor([chunk_tokens])
 
         with torch.no_grad():
-            outputs = gpt2_model(input_ids)
+            outputs = gptj_model(input_ids)
             logits = outputs.logits
 
         loss = torch.nn.functional.cross_entropy(logits.view(-1, logits.size(-1)), input_ids.view(-1), reduction='sum')
@@ -190,25 +190,25 @@ def plot_probability_donut_chart(score, is_ai_generated):
     st.plotly_chart(fig, use_container_width=True)
 
 # Display Functions
-def display_results_gpt2(text):
+def display_results_gptj(text):
     col1, col2, col3 = st.columns([1, 1, 1])
-    perplexity = calculate_perplexity_gpt2(text)
+    perplexity = calculate_perplexity_gptj(text)
     burstiness_score = calculate_burstiness(text)
 
     # Determine if the content is AI-generated based on thresholds
-    is_ai_generated = perplexity > 8000 and burstiness_score > 0.2
+    # Adjust thresholds for GPT-J
+    is_ai_generated = perplexity > 10000 and burstiness_score > 0.2
 
-    # Normalize score for donut chart (Adjust scaling factor if needed)
-    # Use a sigmoid function to map the perplexity to a probability-like score
-    score = 1 / (1 + np.exp(-(perplexity - 8000) / 1000))  # Sigmoid function for more realistic probability
+    # Normalize score for donut chart
+    score = 1 / (1 + np.exp(-(perplexity - 10000) / 1000))  # Adjust sigmoid function for GPT-J
 
     # Ensure the score is within a reasonable range
-    score = max(0.01, min(score, 0.99))  # Clamp score between 0.01 and 0.99
+    score = max(0.01, min(score, 0.99))
 
     with col1:
         st.info("Basic Details")
         st.metric(label="Word Count", value=len(text.split()))
-        plot_probability_donut_chart(score, is_ai_generated)  # Pass probability and classification result
+        plot_probability_donut_chart(score, is_ai_generated)
 
     with col2:
         st.info("Detection Score")
