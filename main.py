@@ -13,7 +13,7 @@ if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
 
 if 'model' not in st.session_state:
-    st.session_state['model'] = 'GPT-2'
+    st.session_state['model'] = 'GPT-J'
 
 if 'uploaded_text' not in st.session_state:
     st.session_state['uploaded_text'] = ""
