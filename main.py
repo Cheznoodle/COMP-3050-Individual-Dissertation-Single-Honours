@@ -73,8 +73,8 @@ def main():
         text_to_analyze = text_area.strip()
         result_entry = {'text': text_to_analyze, 'model': st.session_state['model']}
 
-        if st.session_state['model'] == 'GPT-2':
-            result = plagiarism_detector.display_results_gpt2(text_to_analyze)
+        if st.session_state['model'] == 'GPT-J':
+            result = plagiarism_detector.display_results_gptj(text_to_analyze)
             if result is not None:  # Ensure result is not None before unpacking
                 perplexity, burstiness_score = result
                 result_entry.update({'perplexity': perplexity, 'burstiness_score': burstiness_score})
