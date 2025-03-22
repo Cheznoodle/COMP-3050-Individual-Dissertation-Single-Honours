@@ -15,7 +15,7 @@ def app():
             st.write(f"**Model Used:** {entry.get('model', 'N/A')}")
 
             # Display relevant detection metrics based on the model used
-            if entry['model'] == "GPT-2":
+            if entry['model'] == "GPT-J":
                 if 'perplexity' in entry:
                     st.write(f"**Perplexity:** {entry['perplexity']:.2f}")
                 if 'burstiness_score' in entry:
