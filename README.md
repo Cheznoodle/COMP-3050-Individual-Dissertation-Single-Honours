@@ -84,7 +84,6 @@ Follow the LocalTunnel link to access the Streamlit interface.
 
 ---
 
-### Troubleshooting
 ## Missing Dependencies
 Run:
    ```sh
