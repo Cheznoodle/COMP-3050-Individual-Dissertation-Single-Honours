@@ -75,12 +75,12 @@ Follow the LocalTunnel link to access the Streamlit interface.
 ---
 
 ### File Structure
-   Text-minator/
-   │── main.py              # Main Streamlit app entry point
-   │── plagiarism_detector.py  # AI models for text analysis
-   │── Chat_History.py      # Chat history display
-   │── requirements.txt     # Python dependencies
-   └── README.md            # Documentation
+Text-minator/
+│── main.py              # Main Streamlit app entry point
+│── plagiarism_detector.py  # AI models for text analysis
+│── Chat_History.py      # Chat history display
+│── requirements.txt     # Python dependencies
+└── README.md            # Documentation
 
 ---
 
