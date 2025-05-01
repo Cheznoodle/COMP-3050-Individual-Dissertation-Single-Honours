@@ -159,12 +159,10 @@ def plot_probability_donut_chart(score, is_ai_generated):
 
     # Adjust the probability based on the classification result
     if is_ai_generated:
-        # If AI-generated, set AI probability to a high value (e.g., 80% - 100%)
-        ai_probability = 0.8 + (score * 0.2)  # AI probability ranges from 80% to 100%
+        ai_probability = 0.8 + (score * 0.2)
         human_probability = 1 - ai_probability
     else:
-        # If human-generated, set human probability to a high value (e.g., 80% - 100%)
-        human_probability = 0.8 + (score * 0.2)  # Human probability ranges from 80% to 100%
+        human_probability = 0.8 + (score * 0.2) 
         ai_probability = 1 - human_probability
 
     # Keep the correct ordering so human-generated content appears correctly
@@ -196,7 +194,6 @@ def display_results_gptj(text):
     burstiness_score = calculate_burstiness(text)
 
     # Determine if the content is AI-generated based on thresholds
-    # Adjust thresholds for GPT-J
     is_ai_generated = perplexity > 10000 and burstiness_score > 0.2
 
     # Normalize score for donut chart
