@@ -1,13 +1,13 @@
 # Text-minator: AI Plagiarism Detector
 
 ## Overview
-**Text-minator** is an AI-powered plagiarism detection tool that analyzes text using multiple machine learning models, including **GPT-J, DeBERTa, T5, and BERT**. The application runs on **Streamlit**, providing an interactive web-based interface for analysis.
+**Text-minator** is a free and accessible AI-powered plagiarism detection tool that analyses text using multiple machine learning models, including **GPT-J, DeBERTa, T5, and BERT**. The application runs on **Streamlit**, providing an interactive web-based interface for analysis.
 
 ## Features
 - Supports **GPT-2, DeBERTa, T5, and BERT** for text analysis.
 - Detects AI-generated content using **perplexity, entropy, semantic coherence, and burstiness**.
 - Accepts **text input and file uploads** (PDF and TXT formats).
-- Displays detection results with visualizations.
+- Displays detection results with visualisations.
 - Maintains a **chat history** of previous analyses.
 
 ---
